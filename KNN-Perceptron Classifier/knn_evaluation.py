@@ -9,14 +9,14 @@ from knn import train_test_split, knn_classifier, measure_accuracy
 a4a = pd.read_csv('https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary/a4a', header=None)
 a4a = process_a4a(a4a, 123)
 a4a.rename(columns={0:'Class'}, inplace=True)
-a4a = a4a.copy()
+a4a = a4a.copy().sample(frac=1, random_state=32)
 
 x = a4a.iloc[:,1:]
 x.fillna(0, inplace=True)
 y = np.squeeze(a4a.iloc[:, 0])
 
 x_train, x_test, y_train, y_test = train_test_split(x, y,
-                                                   test_size=0.2,
+                                                   test_size=0.25,
                                                    random_state=1)
 
 euclid_pred, manhat_pred = knn_classifier(x_train, x_test, y_train, k=5) #make predictions
@@ -32,14 +32,14 @@ print(f'Manhattan Distance Accuracy, {round(manhat_accuracy*100,2)}% - Manhattan
 iris  = pd.read_csv('https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/multiclass/iris.scale', header=None)
 iris = process_iris(iris,4)
 iris.rename(columns={0:'Class'}, inplace=True)
-iris = iris.copy()
+iris = iris.copy().sample(frac=1, random_state=45)
 
 x = iris.iloc[:,1:]
 x.fillna(x.mean(), inplace=True)
 y = np.squeeze(iris.iloc[:, 0])
 
 x_train, x_test, y_train, y_test = train_test_split(x, y,
-                                                   test_size=0.3,
+                                                   test_size=0.25,
                                                    random_state=1)
 
 euclid_pred, manhat_pred = knn_classifier(x_train, x_test, y_train, k=5) #make predictions
