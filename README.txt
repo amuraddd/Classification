@@ -1,1 +1,2 @@
-# Binary and Multi-class classification projects
+Binary and Multi-class classification  
+Using KNN and Perceptron Classifiers
